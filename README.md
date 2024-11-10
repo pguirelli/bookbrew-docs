@@ -1,5 +1,5 @@
 # bookbrew-docs
-PPP Official documentation of the BookBrew solution architecture. This repository contains diagrams, data flows, detailed explanations of the microservices, BFFs (web and mobile), and instructions for local setup and technologies used.<br><br>
+Official documentation of the BookBrew solution architecture. This repository contains diagrams, data flows, detailed explanations of the microservices, BFFs (web and mobile), and instructions for local setup and technologies used.<br><br>
 
 ## Software Architecture Document
 **Project:** Personalized Curation E-commerce for Books, Perfumes, Coffee, and Beverages.<br><br>
