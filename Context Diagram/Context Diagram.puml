@@ -1,0 +1,71 @@
+@startuml
+!define RECTANGLE_COLOR #E3F2FD
+!define RECTANGLE_BORDER #90CAF9
+!define ACTOR_COLOR #FFE082
+
+package "Usuários e Perfis" as Profiles {
+    actor Cliente as Cliente <<RECTANGLE_COLOR>> 
+    actor Moderador as Moderador <<ACTOR_COLOR>> 
+    actor Gerente as Gerente <<ACTOR_COLOR>> 
+    actor Administrador as Administrador <<ACTOR_COLOR>> 
+}
+
+package "Interface de Comunicação" as Interface {
+    [Mobile App] <<RECTANGLE_COLOR>> 
+    [Web App] <<RECTANGLE_COLOR>> 
+    [Chatbot (Futuro)] <<RECTANGLE_COLOR>>
+}
+
+package "Backends (BFFs)" as BFFs {
+    [BFF Mobile] <<RECTANGLE_COLOR>>
+    [BFF Web] <<RECTANGLE_COLOR>>
+}
+
+package "Microsserviços Internos" as Backend {
+    [bookbrew-authentication-service] as Authentication <<RECTANGLE_COLOR>>
+    [bookbrew-notification-service] as Notification <<RECTANGLE_COLOR>>
+    [bookbrew-recommendation-service] as Recommendation <<RECTANGLE_COLOR>>
+    [bookbrew-promotion-service] as Promotion <<RECTANGLE_COLOR>>
+    [bookbrew-order-service] as Order <<RECTANGLE_COLOR>>
+    [bookbrew-customer-service] as Customer <<RECTANGLE_COLOR>>
+    [bookbrew-product-service] as Product <<RECTANGLE_COLOR>>
+    [bookbrew-analytics-service] as Analytics <<RECTANGLE_COLOR>>
+    [bookbrew-support-service] as Support <<RECTANGLE_COLOR>>
+    [bookbrew-payment-service] as Payment <<RECTANGLE_COLOR>>
+}
+
+package "Serviços Externos" as External {
+    [Stripe]
+    [API de Endereços (CEP)]
+    [Instagram]
+    [IA Curadoria]
+}
+
+Cliente --> [Mobile App]
+Cliente --> [Web App]
+Moderador --> [Web App]
+Gerente --> [Web App]
+Administrador --> [Web App]
+
+[Mobile App] --> [BFF Mobile]
+[Web App] --> [BFF Web]
+
+[BFF Mobile] --> Backend
+[BFF Web] --> Backend
+
+Backend --> Authentication
+Backend --> Notification
+Backend --> Recommendation
+Backend --> Promotion
+Backend --> Order
+Backend --> Customer
+Backend --> Product
+Backend --> Analytics
+Backend --> Support
+Backend --> Payment
+
+Payment --> [Stripe]
+[API de Endereços (CEP)] --> Backend
+[Instagram] --> Notification
+[IA Curadoria] --> Recommendation
+@enduml

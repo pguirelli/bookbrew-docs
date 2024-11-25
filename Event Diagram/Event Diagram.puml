@@ -1,0 +1,53 @@
+@startuml
+!define RECTANGLE_COLOR #E3F2FD
+!define RECTANGLE_BORDER #90CAF9
+!define ACTOR_COLOR #FFE082
+
+skinparam actor {
+  BackgroundColor ACTOR_COLOR
+  BorderColor RECTANGLE_BORDER
+}
+
+skinparam entity {
+  BackgroundColor RECTANGLE_COLOR
+  BorderColor RECTANGLE_BORDER
+}
+
+actor Cliente as Cliente
+actor Moderador as Moderador
+actor Gerente as Gerente
+actor Administrador as Administrador
+
+package "Eventos" {
+    entity "Login Realizado" as Login
+    entity "Produto Adicionado ao Carrinho" as AddToCart
+    entity "Pedido Criado" as OrderCreated
+    entity "Pagamento Processado" as PaymentProcessed
+    entity "Pedido Confirmado" as OrderConfirmed
+    entity "Estoque Atualizado" as StockUpdated
+    entity "Notificação Enviada" as NotificationSent
+    entity "Recomendação Gerada" as RecommendationGenerated
+}
+
+package "Microsserviços" {
+    [bookbrew-authentication-service] as Authentication
+    [bookbrew-order-service] as Order
+    [bookbrew-payment-service] as Payment
+    [bookbrew-product-service] as Product
+    [bookbrew-notification-service] as Notification
+    [bookbrew-recommendation-service] as Recommendation
+    [bookbrew-product-service] as Inventory
+}
+
+Cliente --> Login
+Login --> Authentication : Verifica Credenciais
+AddToCart --> Product : Adiciona Produto ao Carrinho
+OrderCreated --> Order : Cria Pedido
+PaymentProcessed --> Payment : Processa Pagamento
+OrderConfirmed --> Inventory : Atualiza Estoque
+OrderConfirmed --> Notification : Envia Confirmação ao Cliente
+RecommendationGenerated --> Recommendation : Gera Recomendações Personalizadas
+AddToCart --> RecommendationGenerated : Sugerir Produtos Relacionados
+PaymentProcessed --> OrderCreated : Confirma Pedido
+
+@enduml

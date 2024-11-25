@@ -1,0 +1,64 @@
+@startuml
+!define RECTANGLE_COLOR #E3F2FD
+!define RECTANGLE_BORDER #90CAF9
+!define ACTOR_COLOR #FFE082
+
+actor Cliente as Cliente <<ACTOR_COLOR>> 
+actor Moderador as Moderador <<ACTOR_COLOR>> 
+actor Gerente as Gerente <<ACTOR_COLOR>> 
+actor Administrador as Administrador <<ACTOR_COLOR>> 
+
+package "Interfaces de Comunicação" {
+    [Mobile App] <<RECTANGLE_COLOR>> 
+    [Web App] <<RECTANGLE_COLOR>> 
+}
+
+package "Microsserviços Internos" {
+    [bookbrew-bff-mobile] <<RECTANGLE_COLOR>>
+    [bookbrew-bff-web] <<RECTANGLE_COLOR>>
+    [bookbrew-authentication-service] <<RECTANGLE_COLOR>>
+    [bookbrew-order-service] <<RECTANGLE_COLOR>>
+    [bookbrew-payment-service] <<RECTANGLE_COLOR>>
+    [bookbrew-product-service] <<RECTANGLE_COLOR>>
+    [bookbrew-notification-service] <<RECTANGLE_COLOR>>
+    [bookbrew-recommendation-service] <<RECTANGLE_COLOR>>
+    [bookbrew-analytics-service] <<RECTANGLE_COLOR>>
+}
+
+package "Serviços Externos" {
+    [Stripe] <<RECTANGLE_COLOR>>
+}
+
+Cliente --> [Mobile App]
+Cliente --> [Web App]
+
+[Mobile App] --> [bookbrew-bff-mobile]
+[Web App] --> [bookbrew-bff-web]
+
+[bookbrew-bff-mobile] --> [bookbrew-authentication-service]
+[bookbrew-bff-web] --> [bookbrew-authentication-service]
+
+[bookbrew-authentication-service] --> [bookbrew-order-service] : Authenticate user
+
+[bookbrew-bff-mobile] --> [bookbrew-product-service] : Get product info
+[bookbrew-bff-web] --> [bookbrew-product-service] : Get product info
+
+[bookbrew-bff-mobile] --> [bookbrew-recommendation-service] : Suggest related products
+[bookbrew-bff-web] --> [bookbrew-recommendation-service] : Suggest related products
+
+[bookbrew-bff-mobile] --> [bookbrew-order-service] : Create order
+[bookbrew-bff-web] --> [bookbrew-order-service] : Create order
+
+[bookbrew-order-service] --> [bookbrew-payment-service] : Process payment
+[bookbrew-payment-service] --> [Stripe] : Process payment with Stripe
+[bookbrew-order-service] --> [bookbrew-product-service] : Check product availability
+[bookbrew-product-service] --> [bookbrew-notification-service] : Send stock updates
+
+[bookbrew-notification-service] --> [Mobile App] : Send order confirmation
+[bookbrew-notification-service] --> [Web App] : Send order confirmation
+
+[bookbrew-analytics-service] --> [bookbrew-order-service] : Collect order data
+[bookbrew-analytics-service] --> [bookbrew-product-service] : Collect product data
+[bookbrew-analytics-service] --> [bookbrew-recommendation-service] : Collect recommendation data
+
+@enduml

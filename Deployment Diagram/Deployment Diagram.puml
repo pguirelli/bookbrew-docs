@@ -1,0 +1,34 @@
+@startuml
+!define RECTANGLE_COLOR #E3F2FD
+!define RECTANGLE_BORDER #90CAF9
+!define ACTOR_COLOR #FFE082
+
+node "Máquina Local / Servidor na Nuvem" {
+    node "Docker" {
+        [bookbrew-bff-mobile] <<RECTANGLE_COLOR>>
+        [bookbrew-bff-web] <<RECTANGLE_COLOR>>
+        [bookbrew-authentication-service] as Authentication <<RECTANGLE_COLOR>>
+        [bookbrew-notification-service] as Notification <<RECTANGLE_COLOR>>
+        [bookbrew-recommendation-service] as Recommendation <<RECTANGLE_COLOR>>
+        [bookbrew-promotion-service] as Promotion <<RECTANGLE_COLOR>>
+        [bookbrew-order-service] as Order <<RECTANGLE_COLOR>>
+        [bookbrew-customer-service] as Customer <<RECTANGLE_COLOR>>
+        [bookbrew-product-service] as Product <<RECTANGLE_COLOR>>
+        [bookbrew-analytics-service] as Analytics <<RECTANGLE_COLOR>>
+        [bookbrew-support-service] as Support <<RECTANGLE_COLOR>>
+        [bookbrew-payment-service] as Payment <<RECTANGLE_COLOR>>
+    }
+}
+
+node "Serviços Externos" {
+    [Stripe] <<RECTANGLE_COLOR>>
+    [API de Endereços (CEP)] <<RECTANGLE_COLOR>>
+    [Instagram] <<RECTANGLE_COLOR>>
+    [IA Curadoria] <<RECTANGLE_COLOR>>
+}
+
+[Stripe] --> [bookbrew-payment-service]
+[API de Endereços (CEP)] --> [bookbrew-customer-service]
+[Instagram] --> [bookbrew-notification-service]
+[IA Curadoria] --> [bookbrew-recommendation-service]
+@enduml
