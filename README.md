@@ -34,14 +34,13 @@ An e-commerce platform offering a curated selection of books, perfumes, coffees,
 4. **Email Notifications**: Sends order confirmation emails and status updates.
 5. **Blog**: A section with articles on literature, coffee tips, and beverage pairings, promoting engagement.
 6. **Subscription Clubs**: Offers monthly subscription plans featuring curated selections of books, coffees, and beverages based on the user profile.
-7. **Virtual Events**: Webinars or live events with authors, baristas, or beverage experts to engage the community.
-8. **Gamification**: Rewards or points for interactions (such as reviews, shares, etc.) that can be redeemed for discounts or products.<br><br>
+7. **Gamification**: Rewards or points for interactions (such as reviews, shares, etc.) that can be redeemed for discounts or products.<br><br>
 
 ### 6. Suggested Technologies
-1. **Frontend**: React, Vue.js, or Angular.
-2. **Backend**: Node.js with Express or Django.
-3. **Database**: MongoDB or PostgreSQL.
-4. **API**: RESTful or GraphQL for frontend-backend communication.
+1. **Frontend**: React.
+2. **Backend**: Spring Boot.
+3. **Database**: MongoDB, MySQL and Redis.
+4. **API**: RESTful for frontend-backend communication.
 5. **Authentication**: JWT (JSON Web Tokens) for user authentication.<br><br>
 
 ### 7. Testing Scenarios
@@ -129,8 +128,8 @@ An e-commerce platform offering a curated selection of books, perfumes, coffees,
 
 ### 3. Architecture Components
 - #### 3.1. Presentation Layer (Frontend)
-  - **Web App:** User interface for web access, developed in React or Angular.
-  - **App Mobile:** Interface for mobile devices, built with frameworks like React Native or Flutter.
+  - **Web App:** User interface for web access, developed in React.
+  - **App Mobile:** Interface for mobile devices, built with frameworks like React Native.
   - **Responsibilities:** Interacts with the BFF to retrieve data on products, carts, profiles, and recommendations, adapting the presentation for each platform.
 
 - #### 3.2. Backend for Frontend (BFF) Services
@@ -142,7 +141,7 @@ An e-commerce platform offering a curated selection of books, perfumes, coffees,
       - Adapts responses for each platform, offering a personalized experience.
 
 - #### 3.3. Backend Microservices
-  - Each microservice is responsible for a specific function and communicates with the BFF or other services via RESTful APIs or gRPC:
+  - Each microservice is responsible for a specific function and communicates with the BFF or other services via RESTful APIs:
     1. Product Registration Service
         - **Function:** Manages product information, including name, description, category, price, and stock.
         - **Database:** MySQL (structured, relational data).
@@ -183,7 +182,7 @@ An e-commerce platform offering a curated selection of books, perfumes, coffees,
 
 ### 5. Communication and Messaging Flow
   - To ensure efficient, decoupled communication between microservices, a messaging system is used:
-    - **Message Queue (RabbitMQ or Kafka):** Facilitates asynchronous processing between services, such as sending notifications or updating inventory.
+    - **Message Queue (Kafka):** Facilitates asynchronous processing between services, such as sending notifications or updating inventory.
     - **Events:** Purchase event notifications, inventory updates, and payment notifications.<br><br>
 
 ### 6. Security and Authentication

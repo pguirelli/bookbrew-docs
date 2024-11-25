@@ -1,68 +1,76 @@
 @startuml
-!define RECTANGLE_COLOR #E3F2FD
-!define RECTANGLE_BORDER #90CAF9
-
-package "Frontend" as Frontend {
-    [Mobile App] <<RECTANGLE_COLOR>>
-    [Web App] <<RECTANGLE_COLOR>>
+package "Frontend" {
+    [Web App] #E3F2FD
+    [Mobile App] #E3F2FD
+    [Chatbot (Futuro)] #E3F2FD
 }
 
-package "BFFs (Backend for Frontend)" as BFFs {
-    [bookbrew-bff-mobile] <<RECTANGLE_COLOR>>
-    [bookbrew-bff-web] <<RECTANGLE_COLOR>>
+package "BFF" {
+    [BFF Web] #E3F2FD
+    [BFF Mobile] #E3F2FD
 }
 
-package "Microsserviços Internos" as Backend {
-    [bookbrew-authentication-service] <<RECTANGLE_COLOR>>
-    [bookbrew-notification-service] <<RECTANGLE_COLOR>>
-    [bookbrew-recommendation-service] <<RECTANGLE_COLOR>>
-    [bookbrew-promotion-service] <<RECTANGLE_COLOR>>
-    [bookbrew-order-service] <<RECTANGLE_COLOR>>
-    [bookbrew-customer-service] <<RECTANGLE_COLOR>>
-    [bookbrew-product-service] <<RECTANGLE_COLOR>>
-    [bookbrew-analytics-service] <<RECTANGLE_COLOR>>
-    [bookbrew-support-service] <<RECTANGLE_COLOR>>
-    [bookbrew-payment-service] <<RECTANGLE_COLOR>>
+package "Backend" {
+    [bookbrew-authentication-service] #E3F2FD
+    [bookbrew-notification-service] #E3F2FD
+    [bookbrew-recommendation-service] #E3F2FD
+    [bookbrew-promotion-service] #E3F2FD
+    [bookbrew-order-service] #E3F2FD
+    [bookbrew-customer-service] #E3F2FD
+    [bookbrew-product-service] #E3F2FD
+    [bookbrew-analytics-service] #E3F2FD
+    [bookbrew-support-service] #E3F2FD
+    [bookbrew-payment-service] #E3F2FD
 }
 
-package "Serviços Externos" as External {
-    [Stripe]
-    [API de Endereços (CEP)]
-    [Instagram]
-    [IA Curadoria]
+package "Databases" {
+    database MySQL as MySQL #BBDEFB
+    database MongoDB as MongoDB #BBDEFB
+    [Redis Cache] #BBDEFB
 }
 
-' Frontend Interage com BFFs
-Frontend --> [bookbrew-bff-mobile]
-Frontend --> [bookbrew-bff-web]
+package "External Services" {
+    [Stripe] #FFE082
+    [API de Endereços (CEP)] #FFE082
+    [Instagram] #FFE082
+    [AI Curadoria] #FFE082
+}
 
-' BFFs interagem com microsserviços
-[bookbrew-bff-mobile] --> [bookbrew-authentication-service]
-[bookbrew-bff-mobile] --> [bookbrew-notification-service]
-[bookbrew-bff-mobile] --> [bookbrew-recommendation-service]
-[bookbrew-bff-mobile] --> [bookbrew-promotion-service]
-[bookbrew-bff-mobile] --> [bookbrew-order-service]
-[bookbrew-bff-mobile] --> [bookbrew-customer-service]
-[bookbrew-bff-mobile] --> [bookbrew-product-service]
-[bookbrew-bff-mobile] --> [bookbrew-analytics-service]
-[bookbrew-bff-mobile] --> [bookbrew-support-service]
-[bookbrew-bff-mobile] --> [bookbrew-payment-service]
+package "Infrastructure" {
+    [Docker] #C5E1A5
+    [Message Queue] #C5E1A5
+}
 
-[bookbrew-bff-web] --> [bookbrew-authentication-service]
-[bookbrew-bff-web] --> [bookbrew-notification-service]
-[bookbrew-bff-web] --> [bookbrew-recommendation-service]
-[bookbrew-bff-web] --> [bookbrew-promotion-service]
-[bookbrew-bff-web] --> [bookbrew-order-service]
-[bookbrew-bff-web] --> [bookbrew-customer-service]
-[bookbrew-bff-web] --> [bookbrew-product-service]
-[bookbrew-bff-web] --> [bookbrew-analytics-service]
-[bookbrew-bff-web] --> [bookbrew-support-service]
-[bookbrew-bff-web] --> [bookbrew-payment-service]
+[Web App] --> [BFF Web]
+[Mobile App] --> [BFF Mobile]
 
-' Integrações Externas
+[BFF Web] --> [bookbrew-authentication-service]
+[BFF Web] --> [bookbrew-customer-service]
+[BFF Web] --> [bookbrew-product-service]
+[BFF Web] --> [bookbrew-order-service]
+[BFF Web] --> [bookbrew-promotion-service]
+[BFF Web] --> [bookbrew-notification-service]
+[BFF Web] --> [bookbrew-recommendation-service]
+
+[BFF Mobile] --> [bookbrew-authentication-service]
+[BFF Mobile] --> [bookbrew-customer-service]
+[BFF Mobile] --> [bookbrew-product-service]
+[BFF Mobile] --> [bookbrew-order-service]
+[BFF Mobile] --> [bookbrew-promotion-service]
+[BFF Mobile] --> [bookbrew-notification-service]
+[BFF Mobile] --> [bookbrew-recommendation-service]
+
+[bookbrew-authentication-service] --> MySQL
+[bookbrew-customer-service] --> MySQL
+[bookbrew-product-service] --> MongoDB
+[bookbrew-order-service] --> MySQL
+[bookbrew-notification-service] --> [Redis Cache]
+[bookbrew-recommendation-service] --> [AI Curadoria]
 [bookbrew-payment-service] --> [Stripe]
-[API de Endereços (CEP)] --> Backend
-[Instagram] --> [bookbrew-notification-service]
-[IA Curadoria] --> [bookbrew-recommendation-service]
+[bookbrew-support-service] --> [Instagram]
+[API de Endereços (CEP)] --> [bookbrew-customer-service]
 
+[bookbrew-notification-service] --> [Message Queue]
+[bookbrew-recommendation-service] --> [Message Queue]
+[bookbrew-order-service] --> [Message Queue]
 @enduml
