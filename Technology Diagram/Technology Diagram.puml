@@ -1,0 +1,57 @@
+@startuml
+
+package "Frontend" {
+    [React] #E3F2FD
+    [TypeScript] #E3F2FD
+    [Webpack] #E3F2FD
+}
+
+package "Backend" {
+    [Java] #E3F2FD
+    [Spring Boot] #E3F2FD
+    [RabbitMQ] #E3F2FD
+}
+
+package "Databases" {
+    [MySQL] #E3F2FD
+    [MongoDB] #E3F2FD
+    [Redis] #E3F2FD
+}
+
+package "Infrastructure" {
+    [Docker] #E3F2FD
+    [Message Queue] #E3F2FD
+}
+
+package "External Services" {
+    [Stripe] #FFE082
+    [API de Endereços (CEP)] #FFE082
+    [Instagram API] #FFE082
+    [AI Curadoria] #FFE082
+}
+
+package "DevOps" {
+    [GitHub Actions] #E3F2FD
+    [Git] #E3F2FD
+}
+
+[React] --> [BFF Web]
+[TypeScript] --> [React]
+[Webpack] --> [React]
+
+[Java] --> [Spring Boot]
+[Spring Boot] --> [RabbitMQ]
+
+[MySQL] --> [Spring Boot]
+[MongoDB] --> [Spring Boot]
+[Redis] --> [Spring Boot]
+
+[Stripe] --> [Spring Boot]
+[API de Endereços (CEP)] --> [Spring Boot]
+[Instagram API] --> [Spring Boot]
+[AI Curadoria] --> [Spring Boot]
+
+[Docker] --> [Spring Boot]
+[GitHub Actions] --> [Git]
+
+@enduml
