@@ -1,0 +1,166 @@
+Table Profile {
+  Id int [pk]
+  Description varchar
+}
+
+Table User {
+  Id int [pk]
+  Profile_Id int [ref: > Profile.Id]
+  First_Name varchar
+  Last_Name varchar
+  Email varchar
+  Password varchar
+  Phone varchar
+  CPF varchar
+  Creation_Date datetime
+  Update_Date datetime
+  Last_Login_Date datetime
+  Password_Change_Date datetime
+  Status varchar
+}
+
+Table Customer {
+  Id int [pk]
+  User_Id int [ref: > User.Id]
+  Address_Id int [ref: > Address.Id]
+  Status varchar
+  Birth_Date datetime
+}
+
+Table Address {
+  Id int [pk]
+  ZIP_Code varchar
+  Street varchar
+  Neighborhood varchar
+  City varchar
+  State varchar
+  Country varchar
+  Complement varchar
+}
+
+Table Category {
+  Id int [pk]
+  Description varchar
+  Status varchar
+  Creation_Date datetime
+  Update_Date datetime
+}
+
+Table Product {
+  Id int [pk]
+  Code varchar
+  Title varchar
+  Description text
+  Category_Id int [ref: > Category.Id]
+  Price decimal
+  Stock int
+  Minimum_Stock int
+  Status varchar
+  Creation_Date datetime
+  Update_Date datetime
+  Brand_Id int [ref: > Brand.Id]
+  Weight decimal
+  Height decimal
+  Width decimal
+  Length decimal
+  Sales_Quantity int
+}
+
+Table Product_Images {
+  Id int [pk]
+  Product_Id int [ref: > Product.Id]
+  Path varchar
+  Description varchar
+}
+
+Table Brand {
+  Id int [pk]
+  Description varchar
+}
+
+Table Order {
+  Id int [pk]
+  User_Id int [ref: > User.Id]
+  Date datetime
+  Amount decimal
+  Status varchar
+  Creation_Date datetime
+  Update_Date datetime
+  Item_Count int
+  Payment_Id int [ref: > Payment.Id]
+  Address_Id int [ref: > Address.Id]
+}
+
+Table Order_Items {
+  Id int [pk]
+  Order_Id int [ref: > Order.Id]
+  Product_Id int [ref: > Product.Id]
+  Quantity int
+  Price decimal
+  Total_Price decimal
+  Creation_Date datetime
+  Update_Date datetime
+}
+
+Table Payment {
+  Id int [pk]
+  Payment_Method varchar
+  Status varchar
+  Transaction_Code varchar
+  Payment_Date datetime
+}
+
+Table Recommendations {
+  Id int [pk]
+  User_Id int [ref: > User.Id]
+  Product_Id int [ref: > Product.Id]
+  Score float
+  Generation_Date datetime
+}
+
+Table Questionnaire_Questions {
+  Id int [pk]
+  Question text
+  Status varchar
+}
+
+Table User_Responses {
+  Id int [pk]
+  User_Id int [ref: > User.Id]
+  Question_Id int [ref: > Questionnaire_Questions.Id]
+  Response text
+  Creation_Date datetime
+  Update_Date datetime
+}
+
+Table Promotions {
+  Id int [pk]
+  Name varchar
+  Product_Id int [ref: > Product.Id]
+  Discount_Percentage decimal
+  Start_Date datetime
+  End_Date datetime
+  Creation_Date datetime
+  Update_Date datetime
+  Status varchar
+}
+
+Table Product_Reviews {
+  Id int [pk]
+  Product_Id int [ref: > Product.Id]
+  User_Id int [ref: > User.Id]
+  Rating int
+  Comment text
+  Creation_Date datetime
+  Update_Date datetime
+  Status varchar
+}
+
+Table Recovery_Tokens {
+  Id int [pk]
+  User_Id int [ref: > User.Id]
+  Token varchar
+  Creation_Date datetime
+  Expiration_Date datetime
+  Used boolean
+}
