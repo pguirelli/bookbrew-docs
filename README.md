@@ -60,6 +60,7 @@ An e-commerce platform offering a curated selection of books, perfumes, coffees,
    - Design and UX: Include wireframes or mockups of key screens.
 2. **Database Documentation**
    - Data Model: ER (Entity-Relationship) Diagram displaying tables, relationships, and attributes.
+      - https://dbdiagram.io/d/674e3c48e9daa85aca6cf5a5
    - Table Specifications: Detail each table (columns, data types, constraints).
 3. **Diagrams**
    - Use Case Diagram: Shows interactions between users and the system.
